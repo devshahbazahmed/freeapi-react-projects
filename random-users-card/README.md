@@ -43,6 +43,7 @@ Each user card displays:
    ```
 
 2. Install dependencies:
+
    ```bash
    pnpm install
    ```
