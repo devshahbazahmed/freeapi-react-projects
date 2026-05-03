@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | FreeAPI Auth</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <main class="auth-layout">
+      <section class="auth-copy">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">A</span>
+          <span>FreeAPI Auth</span>
+        </a>
+        <div>
+          <p class="eyebrow">Create account</p>
+          <h1>Start a new authenticated session.</h1>
+          <p>
+            Register with the FreeAPI users module, then sign in with your new
+            credentials.
+          </p>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <div class="card-heading">
+          <h2>Register</h2>
+          <p>Use a unique username and email address.</p>
+        </div>
+
+        <form id="registerForm" class="form-stack">
+          <label>
+            <span>Username</span>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="doejohn"
+              autocomplete="username"
+              required
+            />
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="user.email@domain.com"
+              autocomplete="email"
+              required
+            />
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="test@123"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            />
+          </label>
+
+          <label>
+            <span>Role</span>
+            <select name="role" id="role" required>
+              <option value="ADMIN">ADMIN</option>
+              <option value="USER">USER</option>
+            </select>
+          </label>
+
+          <button class="button button-primary button-wide" type="submit">
+            Create account
+          </button>
+        </form>
+
+        <p id="message" class="message" hidden></p>
+
+        <p class="auth-switch">
+          Already have an account?
+          <a href="./login.html">Login</a>
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="../js/main.js"></script>
+  </body>
+</html>

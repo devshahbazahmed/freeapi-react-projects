@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | FreeAPI Auth</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <main class="auth-layout">
+      <section class="auth-copy">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">A</span>
+          <span>FreeAPI Auth</span>
+        </a>
+        <div>
+          <p class="eyebrow">Welcome back</p>
+          <h1>Sign in and fetch the active user.</h1>
+          <p>
+            Login starts the session. The dashboard confirms it by calling the
+            current-user endpoint with cookies included.
+          </p>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <div class="card-heading">
+          <h2>Login</h2>
+          <p>Enter the username and password you registered with.</p>
+        </div>
+
+        <form id="loginForm" class="form-stack">
+          <label>
+            <span>Username</span>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="doejohn"
+              autocomplete="username"
+              required
+            />
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="test@123"
+              autocomplete="current-password"
+              required
+            />
+          </label>
+
+          <button class="button button-primary button-wide" type="submit">
+            Login
+          </button>
+        </form>
+
+        <p id="message" class="message" hidden></p>
+
+        <p class="auth-switch">
+          Need an account?
+          <a href="./register.html">Register</a>
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="../js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | FreeAPI Auth</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <main class="dashboard-shell">
+      <nav class="top-nav dashboard-nav">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">A</span>
+          <span>FreeAPI Auth</span>
+        </a>
+        <div class="nav-actions">
+          <button id="refreshUserButton" class="button button-secondary" type="button">
+            Refresh user
+          </button>
+          <button id="logoutButton" class="button button-danger" type="button">
+            Logout
+          </button>
+        </div>
+      </nav>
+
+      <section class="dashboard-header">
+        <div>
+          <p class="eyebrow">Authenticated area</p>
+          <h1>Current user profile</h1>
+          <p>
+            These details come from
+            <code>GET /api/v1/users/current-user</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="profile-card">
+          <div class="card-heading">
+            <h2>Session details</h2>
+            <p>Loaded from the active API session.</p>
+          </div>
+          <div id="profileDetails" class="profile-details">
+            <div class="profile-skeleton"></div>
+            <div class="profile-skeleton short"></div>
+            <div class="profile-skeleton"></div>
+          </div>
+          <p id="message" class="message" hidden></p>
+        </article>
+
+        <aside class="info-card">
+          <h2>How this works</h2>
+          <p>
+            The login request uses <code>credentials: include</code> so the
+            browser can store and send FreeAPI session cookies on later
+            requests.
+          </p>
+          <p>
+            Logout calls the API, then clears the locally cached profile used
+            only for quick UI rendering.
+          </p>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="../js/main.js"></script>
+  </body>
+</html>
