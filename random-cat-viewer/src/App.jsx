@@ -1,61 +1,69 @@
-/* eslint-disable react-hooks/set-state-in-effect */
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+
+const API_URL = 'https://api.freeapi.app/api/v1/public/cats/cat/random';
 
 function App() {
   const [cat, setCat] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
+  const [viewCount, setViewCount] = useState(0);
 
   const fetchCat = async () => {
     try {
       setLoading(true);
-      setError(null);
+      setError('');
 
-      const res = await axios.get(
-        'https://api.freeapi.app/api/v1/public/cats/cat/random'
-      );
-      console.log(res.data.data);
+      const res = await axios.get(API_URL);
 
       setCat(res.data.data);
+      setViewCount((count) => count + 1);
     } catch (err) {
-      setError('Failed to load cat 😿', err);
+      setError('Failed to load a new image. Please try again.');
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchCat();
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-6">Random Cat Viewer 🐱</h1>
+    <main className="cat-shell">
+      <section className="cat-layout">
+        <div className="cat-copy">
+          <p className="cat-kicker">Random image viewer</p>
+          <h1>Fresh cat portrait, every click.</h1>
+          <p>
+            A cleaner image-focused viewer with a larger preview, graceful
+            loading state, and a simple refresh action.
+          </p>
+        </div>
 
-      <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md text-center">
-        {loading && (
-          <div className="w-full h-64 bg-gray-300 animate-pulse rounded-lg"></div>
-        )}
-        {error && <p className="text-red-500">{error}</p>}
+        <article className="cat-card">
+          <div className="cat-frame">
+            {loading && <div className="cat-loader" aria-label="Loading image" />}
+            {error && <p className="cat-error">{error}</p>}
+            {cat && !loading && !error && (
+              <img key={cat.image} src={cat.image} alt="Random cat" />
+            )}
+          </div>
 
-        {cat && !loading && (
-          <img
-            src={cat.image}
-            alt="Random Cat"
-            className="w-full h-64 object-cover rounded-lg mb-4"
-          />
-        )}
-
-        <button
-          onClick={fetchCat}
-          disabled={loading}
-          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 disabled:opacity-50 hover:cursor-pointer active:scale-95"
-        >
-          {loading ? 'Loading...' : 'Load New Cat'}
-        </button>
-      </div>
-    </div>
+          <div className="cat-controls">
+            <div>
+              <span>Images viewed</span>
+              <strong>{viewCount || '--'}</strong>
+            </div>
+            <button type="button" onClick={fetchCat} disabled={loading}>
+              {loading ? 'Loading...' : 'Load New Cat'}
+            </button>
+          </div>
+        </article>
+      </section>
+    </main>
   );
 }
 
