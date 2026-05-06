@@ -1,13 +1,22 @@
-const QuoteCard = ({ quote }) => {
+const QuoteCard = ({ quote, featured = false, index = 0 }) => {
+  const cardStyle = {
+    animationDelay: `${Math.min(index * 70, 560)}ms`,
+  };
+
   return (
-    <div className="bg-white shadow-md rounded-2xl p-6 hover:shadow-lg transition">
-      <p className="text-lg font-medium text-gray-800 mb-4">
-        “{quote.content}”
-      </p>
-      <p className="text-right text-sm text-gray-500">
-        — {quote.author || 'Unknown'}
-      </p>
-    </div>
+    <article
+      className={`quote-card${featured ? ' quote-card-featured' : ''}`}
+      style={cardStyle}
+    >
+      <div className="quote-mark" aria-hidden="true">
+        &ldquo;
+      </div>
+      <p className="quote-content">{quote.content}</p>
+      <footer className="quote-footer">
+        <span className="author-line" />
+        <span>{quote.author || 'Unknown'}</span>
+      </footer>
+    </article>
   );
 };
 
