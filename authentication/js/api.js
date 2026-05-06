@@ -1,6 +1,12 @@
 const BASE_URL = '/api/v1/users';
+const ACCESS_TOKEN_KEY = 'authAccessToken';
+
+function getAccessToken() {
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
 
 export async function apiRequest(endpoint, method = 'GET', body = null) {
+  const accessToken = getAccessToken();
   const options = {
     method,
     headers: {
@@ -11,6 +17,10 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
 
   if (body) {
     options.body = JSON.stringify(body);
+  }
+
+  if (accessToken) {
+    options.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   let res;

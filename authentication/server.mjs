@@ -1,10 +1,11 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
-import { extname, join, normalize } from 'node:path';
+import { dirname, extname, join, normalize } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const PORT = 8090;
 const API_ORIGIN = 'https://api.freeapi.app';
-const ROOT = process.cwd();
+const ROOT = dirname(fileURLToPath(import.meta.url));
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -52,6 +53,10 @@ async function proxyApi(req, res) {
 
   if (req.headers.cookie) {
     headers.cookie = req.headers.cookie;
+  }
+
+  if (req.headers.authorization) {
+    headers.authorization = req.headers.authorization;
   }
 
   try {

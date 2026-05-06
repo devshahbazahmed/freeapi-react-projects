@@ -42,7 +42,7 @@ async function loadCurrentUser({ redirectOnFail = false } = {}) {
       throw new Error('No active user was returned by the API.');
     }
 
-    saveSessionUser(user);
+    saveSessionUser(user, response);
     renderUserProfile(profileContainer, user);
     setMessage(messageElement, 'You are logged in.', 'success');
   } catch (error) {
@@ -75,7 +75,7 @@ registerForm?.addEventListener('submit', async (event) => {
     const response = await registerUser(formData);
     const user = getUserFromResponse(response);
 
-    saveSessionUser(user);
+    saveSessionUser(user, response);
     setMessage(
       messageElement,
       'Account created successfully. Redirecting to login...',
@@ -104,7 +104,7 @@ loginForm?.addEventListener('submit', async (event) => {
     const response = await loginUser(formData);
     const user = getUserFromResponse(response);
 
-    saveSessionUser(user);
+    saveSessionUser(user, response);
     setMessage(messageElement, 'Login successful. Opening dashboard...', 'success');
 
     setTimeout(() => redirectTo(pages.dashboard), 700);

@@ -34,7 +34,12 @@ export function setButtonLoading(button, isLoading, loadingText = 'Please wait..
 }
 
 export function getFormValues(form) {
-  return Object.fromEntries(new FormData(form).entries());
+  return Object.fromEntries(
+    [...new FormData(form).entries()].map(([key, value]) => [
+      key,
+      key === 'password' ? value : value.trim(),
+    ]),
+  );
 }
 
 export function getUserFromResponse(response) {
@@ -64,8 +69,8 @@ export function renderUserProfile(container, user) {
     .map(
       ([label, value]) => `
         <div class="profile-row">
-          <span>${label}</span>
-          <strong>${value}</strong>
+          <span>${escapeHTML(label)}</span>
+          <strong>${escapeHTML(value)}</strong>
         </div>
       `,
     )
@@ -74,4 +79,13 @@ export function renderUserProfile(container, user) {
 
 export function redirectTo(path) {
   window.location.href = path;
+}
+
+function escapeHTML(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 }
